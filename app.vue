@@ -14,10 +14,6 @@ const { isLive } = await $fetch(
 
 const live = ref(isLive);
 
-$socket.on("streamInfo", (data) => {
-  live.value = data.meta.isLive;
-});
-
 $socket.on("streamStart", () => {
   live.value = true;
   $toast.success("Stream has Started");

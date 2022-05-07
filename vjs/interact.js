@@ -12,13 +12,17 @@ class InteractPlugin extends Plugin {
 
   play() {
     this.player.play(arguments).catch((e) => {
-      this.player.nointeract = true;
-      this.player.muted(true);
-      this.player.play(arguments);
-      this.toast.info(
-        "Please allow the audio permission in your browser\n\n1) Padlock icon next to the URL\n2) Site Settings\n3) Sound: Allow",
-        { timeout: 15000 }
-      );
+      if (e.name === "NotAllowedError") {
+        this.player.nointeract = true;
+        this.player.muted(true);
+        this.player.play(arguments);
+        this.toast.info(
+          "Please allow the audio permission in your browser\n\n1) Padlock icon next to the URL\n2) Site Settings\n3) Sound: Allow",
+          { timeout: 15000 }
+        );
+      } else {
+        this.player.log("play error", e);
+      }
     });
   }
 }

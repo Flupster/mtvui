@@ -4,8 +4,20 @@ import "videojs-flvjs-es6";
 import vjsPlugins from "../vjs";
 const { $socket } = useNuxtApp();
 
+const videoOptions = {
+  techOrder: ["flvjs", "html5"],
+  flvjs: {
+    mediaDataSource: {
+      isLive: true,
+      cors: true,
+      withCredentials: false,
+    },
+  },
+};
+
 onMounted(() => {
-  const player = videojs("video", { techOrder: ["flvjs"] });
+  const player = videojs("video", videoOptions);
+
   player.socket = $socket;
 
   player.src({
