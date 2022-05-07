@@ -1,0 +1,109 @@
+body {
+  overflow: hidden;
+  background-color: black;
+  color: white;
+}
+
+body,
+#__nuxt {
+  height: 100vh !important;
+}
+
+#video {
+  position: inherit !important;
+}
+
+video,#video {
+  height: 100vh;
+  width: 100vw;
+}
+
+.quote h3 {
+  font-size: 4em !important;
+}
+
+.video-js .vjs-title-bar {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: hidden;
+  font-size: 1.5em;
+  padding: 0.5em;
+  position: absolute;
+  text-align: center;
+  font-weight: bolder;
+  top: 0;
+  width: 100%;
+}
+
+.video-js.vjs-paused.vjs-has-started .vjs-title-bar,
+.video-js.vjs-user-active.vjs-has-started .vjs-title-bar {
+  display: block;
+}
+
+.vjs-user-inactive .vjs-title-bar {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s, opacity 1s;
+}
+
+.video-js {
+  font-size: 15px !important;
+}
+
+.vjs-control-bar {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.vjs-control-amplifier {
+  font-size: 1.4em !important;
+}
+
+.vjs-control-help {
+  font-size: 1.4em !important;
+}
+
+.vjs-control-elapsed {
+  font-size: 1.4em !important;
+  position: absolute !important;
+  width: 100px !important;
+  bottom: 8px !important;
+  text-align: center !important;
+  left: calc(50vw - (100px / 2)) !important;
+}
+
+.video-js .vjs-viewers-control {
+  font-size: 1.5em !important;
+}
+
+.vjs-sync-status {
+  top: 0;
+  right: 0;
+  position: absolute;
+  padding: 0.5em;
+  z-index: 1;
+}
+
+/* Disable unused components */
+.video-js.vjs-playing .vjs-tech {
+  pointer-events: none;
+}
+
+.video-js .vjs-play-control {
+  display: none;
+}
+
+.video-js .vjs-progress-control {
+  opacity: 0%;
+}
+
+.video-js .vjs-live-control {
+  opacity: 0%;
+}
+
+.video-js .vjs-remaining-time {
+  display: none;
+}
+
+.video-js .vjs-big-play-button {
+  display: none;
+}
