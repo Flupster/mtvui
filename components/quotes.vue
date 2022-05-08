@@ -6,7 +6,7 @@ let timeout = null;
 function nextQuote() {
   clearTimeout(timeout);
   quote.value = quotes[Math.floor(Math.random() * quotes.length)];
-  timeout = setTimeout(nextQuote, 1000);
+  timeout = setTimeout(nextQuote, 15000);
 }
 
 nextQuote();

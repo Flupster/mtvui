@@ -35,6 +35,10 @@ class ZoomPlugin extends Plugin {
       case "6":
         this.setZoom(this.x + this.scale, this.y);
         break;
+      // 21:9 aspect ratio zoom
+      case "7":
+        this.setZoom(1.3, 1.3);
+        break;
       // stretch height
       case "8":
         this.setZoom(this.x, this.y + this.scale);
