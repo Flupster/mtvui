@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     "~/assets/style.css",
     "@fortawesome/fontawesome-free/css/all.css",
   ],
-  io: { sockets: [{ name: "main", url: "https://minusten.tv" }] },
+  io: { sockets: [{ name: "main", url: "https://streamer.minusten.tv" }] },
   app: {
     head: {
       title: "Minusten.TV",
