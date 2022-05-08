@@ -1,7 +1,7 @@
 <template>
   <b-container fluid class="h-100">
-    <player v-if="live" />
-    <quotes v-else />
+    <div v-show="live"><player /></div>
+    <div v-show="!live" class="h-100"><quotes /></div>
   </b-container>
 </template>
 
@@ -16,7 +16,7 @@ const live = ref(isLive);
 
 $socket.on("streamStart", () => {
   live.value = true;
-  $toast.success("Stream has Started");
+  $toast.success("Stream has started");
 });
 
 $socket.on("streamEnd", () => {

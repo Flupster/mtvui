@@ -4,6 +4,11 @@ import "videojs-flvjs-es6";
 import vjsPlugins from "../vjs";
 const { $socket } = useNuxtApp();
 
+const src = {
+  type: "video/x-flv",
+  src: `https://nld1.nms.minusten.tv:8443/live/mtv.flv`,
+};
+
 const videoOptions = {
   techOrder: ["flvjs", "html5"],
   flvjs: {
@@ -17,23 +22,18 @@ const videoOptions = {
 
 onMounted(() => {
   const player = videojs("video", videoOptions);
-
   player.socket = $socket;
-
-  player.src({
-    type: "video/x-flv",
-    src: `https://nld1.nms.minusten.tv:8443/live/mtv.flv`,
-  });
 
   vjsPlugins(player);
 
-  $socket.on("streamInfo", (info) => {
-    if (info.meta.isLive && player.paused()) player.play();
+  $socket.on("streamStart", () => {
+    player.src(src);
+    player.play();
   });
 
-  $socket.on("streamStart", () => player.play());
-  $socket.on("streamEnd", () => player.pause());
+  $socket.on("streamEnd", () => player.src(""));
 
+  player.src(src);
   player.interact().play();
 });
 </script>

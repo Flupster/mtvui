@@ -13,7 +13,8 @@ body,
   position: inherit !important;
 }
 
-video,#video {
+video,
+#video {
   height: 100vh;
   width: 100vw;
 }
@@ -23,16 +24,13 @@ video,#video {
 }
 
 .video-js .vjs-title-bar {
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
   display: hidden;
-  font-size: 1.5em;
   padding: 0.5em;
   position: absolute;
   text-align: center;
-  font-weight: bolder;
   top: 0;
-  width: 100%;
+  left: 0;
+  width: 100vw !important;
 }
 
 .video-js.vjs-paused.vjs-has-started .vjs-title-bar,
@@ -50,37 +48,35 @@ video,#video {
   font-size: 15px !important;
 }
 
-.vjs-control-bar {
-  background-color: rgba(0, 0, 0, 0.5) !important;
+.vjs-control-bar, .vjs-title-bar {
+  background: rgba(0, 0, 0, 0.5) !important;
 }
 
-.vjs-control-amplifier {
-  font-size: 1.4em !important;
-}
-
-.vjs-control-help {
-  font-size: 1.4em !important;
-}
-
-.vjs-control-elapsed {
-  font-size: 1.4em !important;
-  position: absolute !important;
-  width: 100px !important;
-  bottom: 12px !important;
-  text-align: center !important;
-  left: calc(50vw - (100px / 2)) !important;
-}
-
-.video-js .vjs-viewers-control {
+.video-js .vjs-viewers-control,
+.vjs-control-amplifier,
+.vjs-control-help,
+.vjs-control-elapsed,
+.vjs-title-bar {
   font-size: 1.5em !important;
 }
 
+.vjs-control-elapsed {
+  position: absolute;
+  width: 100px;
+  bottom: 12px;
+  text-align: center;
+  left: calc(50vw - (100px / 2));
+}
+
+/* Sync status */
 .vjs-sync-status {
+  position: absolute;
   top: 0;
   right: 0;
-  position: absolute;
   padding: 0.5em;
+  opacity: 0;
   z-index: 1;
+  transition: opacity 1s;
 }
 
 /* Disable unused components */
@@ -88,22 +84,13 @@ video,#video {
   pointer-events: none;
 }
 
-.video-js .vjs-play-control {
-  display: none;
-}
-
-.video-js .vjs-progress-control {
+.video-js .vjs-progress-control,
+.vjs-live-control {
   opacity: 0%;
 }
 
-.video-js .vjs-live-control {
-  opacity: 0%;
-}
-
-.video-js .vjs-remaining-time {
-  display: none;
-}
-
-.video-js .vjs-big-play-button {
+.video-js .vjs-play-control,
+.vjs-remaining-time,
+.vjs-big-play-button {
   display: none;
 }

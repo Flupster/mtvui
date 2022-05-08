@@ -1,92 +1,73 @@
 import videojs from "video.js";
 
+class Syncer {
+  constructor(player, component) {
+    this.player = player;
+    this.component = component;
+
+    this.target = 5000;
+
+    player.on("progress", () => this.applySync());
+    player.on("firstplay", () => this.applySync());
+  }
+
+  // calculate time from live edge
+  get desync() {
+    const currentTime = this.player.currentTime();
+    const liveCurrentTime = this.player.liveTracker.liveCurrentTime();
+    return (liveCurrentTime - currentTime) * 1000;
+  }
+
+  // calculate time from target
+  get deviance() {
+    return this.desync - this.target;
+  }
+
+  // get players playbackrate
+  get playbackRate() {
+    return this.player.playbackRate();
+  }
+
+  // don't set playbackrate if it's already set
+  set playbackRate(rate) {
+    if (this.playbackRate !== rate) {
+      this.component.show(rate !== 1);
+      this.player.playbackRate(rate);
+    }
+  }
+
+  applySync() {
+    // On first play the deviance is infinite, slow down to get to target;
+    if (this.deviance === Infinity) return (this.playbackRate = 0.9);
+
+    // change playbackrate based on deviance from target
+    if (Math.abs(this.deviance) > 2500) {
+      this.playbackRate = this.deviance > 0 ? 1.1 : 0.9;
+    }
+
+    // reset playbackrate if deviance is close to 0
+    if (this.playbackRate !== 1 && Math.abs(this.deviance) < 250) {
+      this.playbackRate = 1;
+    }
+  }
+}
+
 const Component = videojs.getComponent("Component");
 const SyncerComponent = videojs.extend(Component, {
   constructor: function (player) {
     Component.apply(this, arguments);
-    this.active = true;
     this.player = player;
-    this.target = 3;
-    this.desync = 3;
-    this.desyncms = 3000;
-    this.playbackRate = 1;
-    this.lastChunk = +new Date();
-    this.syncing = false;
-    this.lastSync = +new Date();
-
-    this.player.on("progress", this.onPlayerProgress.bind(this));
-    this.player.on("firstplay", this.onFirstPlay.bind(this));
+    this.syncer = new Syncer(player, this);
   },
 
   createEl: function () {
-    return videojs.dom.createEl("div", { className: "vjs-sync-status" });
+    const el = videojs.dom.createEl("div", { className: "vjs-sync-status" });
+    el.innerHTML = "🔴";
+    return el;
   },
 
-  onFirstPlay() {
-    setTimeout(() => (this.syncing = true), 5000);
-  },
-
-  onPlayerProgress() {
-    this.lastChunk = +new Date();
-
-    if (this.active) {
-      this.handleSyncing();
-    }
-  },
-
-  handleSyncing() {
-    const currentTime = this.player.currentTime();
-    const liveCurrentTime = this.player.liveTracker.liveCurrentTime();
-    this.desync = liveCurrentTime - currentTime;
-    this.desyncms = this.desync * 1000;
-
-    const oldplaybackrate = this.playbackRate;
-    if (!this.syncing && Math.abs(this.desync - this.target) > 2) {
-      console.log("Out of sync with live, trying to resync!");
-      this.syncing = true;
-    }
-
-    if (this.syncing) {
-      if (Math.abs(this.desync - this.target) < 0.25) {
-        this.playbackRate = 1;
-        this.syncing = false;
-        this.lastSync = +new Date();
-        console.log("Sync Success:", this.desync);
-      } else if (this.desync > this.target) {
-        this.playbackRate = 1.1;
-      } else {
-        this.playbackRate = 0.9;
-      }
-    }
-
-    if (oldplaybackrate !== this.playbackRate) {
-      console.log("Playback rate changed:", this.playbackRate);
-      this.player.playbackRate(this.playbackRate);
-    }
-
-    this.changeUI();
-  },
-
-  enable() {
-    this.active = true;
-  },
-
-  disable() {
-    this.active = false;
-  },
-
-  changeUI() {
-    videojs.dom.emptyEl(this.el());
-
-    if (this.syncing) {
-      return videojs.dom.appendContent(this.el(), " 🔴 ");
-    }
-
-    if (!this.syncing && +new Date() - this.lastSync < 3000) {
-      return videojs.dom.appendContent(this.el(), " 🔵 ");
-    }
-
-    return videojs.dom.appendContent(this.el(), "");
+  show(syncing) {
+    this.el().style.opacity = syncing ? 1 : 0;
   },
 });
 
