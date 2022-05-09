@@ -14,7 +14,8 @@ nextQuote();
 
 <template>
   <b-container class="d-flex align-items-center justify-content-center h-100">
-    <b-row @click="nextQuote" class="text-center quote">
+    <draw />
+    <b-row class="text-center quote">
       <b-col>
         <h3 class="mb-5 text-no-wrap">
           {{ quote.userName }}: {{ quote.content }}
@@ -28,3 +29,12 @@ nextQuote();
     </b-row>
   </b-container>
 </template>
+
+<style>
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+</style>
