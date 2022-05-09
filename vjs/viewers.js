@@ -10,12 +10,10 @@ const ViewerButton = videojs.extend(Button, {
       this.updateViewers(info.meta.viewers);
     });
 
+    // on clicking the icon seek to the live edge - 5s
     this.on("click", () => {
-      const currentTime = player.currentTime();
-      const liveTime = player.liveTracker.liveCurrentTime();
-      const behind = liveTime - currentTime;
-      if (behind > 2 && behind !== Infinity) {
-        player.currentTime(liveTime - 3);
+      if (player.liveTracker.liveCurrentTime() !== Infinity) {
+        player.currentTime(player.liveTracker.liveCurrentTime() - 5);
       }
     });
   },

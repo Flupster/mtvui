@@ -16,9 +16,10 @@ const elapsedComponent = videojs.extend(Component, {
     this.el().innerHTML = "";
 
     player.socket.on("streamInfo", (data) => {
+      if (!data.meta.isLive) return;
       this.calculateOffset(data.servertime);
       this.setStartTime(data.meta.startTime);
-      if (!this.active) this.start();
+      this.start();
     });
 
     player.socket.on("streamEnd", () => this.stop());
@@ -31,12 +32,15 @@ const elapsedComponent = videojs.extend(Component, {
       className: "vjs-control-elapsed",
     });
   },
+
   start() {
+    if (this.active) return;
     this.active = true;
     this.interval = setInterval(this.updateTime.bind(this), 1000);
   },
 
   stop() {
+    if (!this.active) return;
     clearInterval(this.interval);
     this.active = false;
     this.el().innerHTML = "";

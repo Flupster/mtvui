@@ -31,7 +31,7 @@ onMounted(() => {
     player.play();
   });
 
-  $socket.on("streamEnd", () => player.src(""));
+  $socket.on("streamEnd", () => player.pause());
 
   player.src(src);
   player.interact().play();

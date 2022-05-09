@@ -8,7 +8,7 @@ class Syncer {
     this.target = 5000;
 
     player.on("progress", () => this.applySync());
-    player.on("firstplay", () => this.applySync());
+    player.on("loadeddata", () => this.applySync());
   }
 
   // calculate time from live edge
