@@ -1,14 +1,26 @@
 import videojs from "video.js";
 
-class Syncer {
-  constructor(player, component) {
+const Plugin = videojs.getPlugin("plugin");
+class SyncerPlugin extends Plugin {
+  constructor(player) {
+    super(player);
     this.player = player;
-    this.component = component;
-
+    this.enabled = true;
     this.target = 5000;
 
+    player.addChild("Syncer");
     player.on("progress", () => this.applySync());
     player.on("loadeddata", () => this.applySync());
+  }
+
+  disable() {
+    this.player.trigger("stopsyncing");
+    this.playbackRate = 1
+    this.enabled = false;
+  }
+
+  enable() {
+    this.enabled = true;
   }
 
   // calculate time from live edge
@@ -31,12 +43,14 @@ class Syncer {
   // don't set playbackrate if it's already set
   set playbackRate(rate) {
     if (this.playbackRate !== rate) {
-      this.component.show(rate !== 1);
+      this.player.trigger(rate !== 1 ? "startsyncing" : "stopsyncing");
       this.player.playbackRate(rate);
     }
   }
 
   applySync() {
+    if (!this.enabled) return;
+
     // On first play the deviance is infinite, slow down to get to target;
     if (this.deviance === Infinity) return (this.playbackRate = 0.9);
 
@@ -56,8 +70,9 @@ const Component = videojs.getComponent("Component");
 const SyncerComponent = videojs.extend(Component, {
   constructor: function (player) {
     Component.apply(this, arguments);
-    this.player = player;
-    this.syncer = new Syncer(player, this);
+
+    player.on("startsyncing", () => (this.el().style.opacity = 1));
+    player.on("stopsyncing", () => (this.el().style.opacity = 0));
   },
 
   createEl: function () {
@@ -65,10 +80,7 @@ const SyncerComponent = videojs.extend(Component, {
     el.innerHTML = "🔴";
     return el;
   },
-
-  show(syncing) {
-    this.el().style.opacity = syncing ? 1 : 0;
-  },
 });
 
-videojs.registerComponent("Syncer", SyncerComponent);
+videojs.registerPlugin("syncer", SyncerPlugin);
+videojs.registerComponent("syncer", SyncerComponent);

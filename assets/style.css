@@ -48,7 +48,8 @@ video,
   font-size: 15px !important;
 }
 
-.vjs-control-bar, .vjs-title-bar {
+.vjs-control-bar,
+.vjs-title-bar {
   background: rgba(0, 0, 0, 0.5) !important;
 }
 
@@ -93,4 +94,33 @@ video,
 .vjs-remaining-time,
 .vjs-big-play-button {
   display: none;
+}
+
+/* Context menu */
+
+.vjs-contextmenu-ui-menu {
+  position: absolute;
+}
+
+.vjs-contextmenu-ui-menu .vjs-menu-content {
+  background-color: rgba(100, 100, 100, 0.75);
+  border-radius: 0.3em;
+  padding: 0.25em;
+}
+
+.vjs-contextmenu-ui-menu .vjs-menu-item {
+  border-radius: 0.3em;
+  cursor: pointer;
+  margin: 0 0 1px;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  text-align: left;
+  line-height: 1.2;
+  text-transform: none;
+}
+
+.vjs-contextmenu-ui-menu .vjs-menu-item:active,
+.vjs-contextmenu-ui-menu .vjs-menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  text-shadow: 0em 0em 1em white;
 }
