@@ -1,4 +1,5 @@
 import videojs from "video.js";
+import { useToast } from "vue-toastification";
 
 const Plugin = videojs.getPlugin("plugin");
 class SyncerPlugin extends Plugin {
@@ -7,19 +8,27 @@ class SyncerPlugin extends Plugin {
     this.player = player;
     this.enabled = true;
     this.target = 5000;
+    this.toast = useToast();
 
     player.addChild("Syncer");
     player.on("progress", () => this.applySync());
     player.on("loadeddata", () => this.applySync());
+    player.on("keyup", (e) => {
+      if (e.key === "s") this.enabled ? this.disable() : this.enable();
+    });
   }
 
   disable() {
+    if (!this.enabled) return;
+    this.toast.error("Syncer is disabled");
     this.player.trigger("stopsyncing");
-    this.playbackRate = 1
+    this.playbackRate = 1;
     this.enabled = false;
   }
 
   enable() {
+    if (this.enabled) return;
+    this.toast.success("Syncer is enabled");
     this.enabled = true;
   }
 

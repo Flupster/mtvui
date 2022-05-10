@@ -7,7 +7,6 @@ import "./zoom";
 import "./interact";
 import "./fullscreen";
 import "./syncer";
-import "./menu";
 
 export default function (player) {
   // Plugins
@@ -16,7 +15,6 @@ export default function (player) {
   player.fullscreen(); // keybindings for double click to full screen
   player.volumesync(); // syncs volume after reloading the page
   player.syncer(); // syncs video playback with the live stream
-  player.menu(); // context menu
 
   // Components
   player.addChild("TitleBar"); // Adds the title bar
