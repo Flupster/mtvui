@@ -124,3 +124,18 @@ video,
   background-color: rgba(0, 0, 0, 0.5);
   text-shadow: 0em 0em 1em white;
 }
+
+.cursor {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
