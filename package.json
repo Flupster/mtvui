@@ -4,7 +4,8 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "deploy": "nuxt build; nuxt generate; scp -r .output/public/* silas@minusten.tv:/var/www/minusten.tv"
   },
   "devDependencies": {
     "nuxt": "^3.0.0-rc.3"
@@ -16,10 +17,10 @@
     "bootstrap-vue-3": "^0.1.13",
     "flv.js": "^1.6.2",
     "gradient-color": "^2.0.1",
-    "nuxt-socket-io": "^3.0.6",
+    "nuxt-socket-io": "^3.0.8",
     "parseqs": "^0.0.6",
     "parseuri": "^0.0.6",
-    "video.js": "^7.19.2",
+    "video.js": "^7.20.0",
     "videojs-flvjs-es6": "^1.0.1",
     "vue-toastification": "^2.0.0-rc.5",
     "yeast": "^0.1.2"
