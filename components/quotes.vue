@@ -3,11 +3,11 @@ const quotes = await $fetch("https://murcord.minusten.tv/api/discordquotes");
 const quote = ref({});
 let timeout = null;
 
-function nextQuote() {
+const nextQuote = () => {
   clearTimeout(timeout);
   quote.value = quotes[Math.floor(Math.random() * quotes.length)];
   timeout = setTimeout(nextQuote, 15000);
-}
+};
 
 nextQuote();
 </script>
