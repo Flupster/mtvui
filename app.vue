@@ -8,9 +8,7 @@
 <script setup>
 const { $socket, $toast } = useNuxtApp();
 
-const { isLive } = await $fetch(
-  "https://nld1.nms.minusten.tv:8443/api/streams/live/mtv"
-);
+const { isLive } = await $fetch("/api/live");
 
 const live = ref(isLive);
 
@@ -30,6 +28,3 @@ $socket.on("streamInfo", (e) => {
   useHead({ title });
 });
 </script>
-
-
-

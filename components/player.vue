@@ -4,10 +4,7 @@ import "videojs-flvjs-es6";
 import vjsPlugins from "../vjs";
 const { $socket } = useNuxtApp();
 
-const src = {
-  type: "video/x-flv",
-  src: `https://nld1.nms.minusten.tv:8443/live/mtv.flv`,
-};
+const src = { type: "video/x-flv", src: `stream.flv` };
 
 const videoOptions = {
   techOrder: ["flvjs", "html5"],
