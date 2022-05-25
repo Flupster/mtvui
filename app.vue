@@ -1,14 +1,20 @@
 <template>
   <b-container fluid class="h-100">
-    <div v-show="live"><player /></div>
-    <div v-show="!live" class="h-100"><quotes /></div>
+    <div v-show="live">
+      <player />
+    </div>
+
+    <div v-show="!live" class="h-100">
+      <quotes />
+    </div>
   </b-container>
 </template>
 
 <script setup>
+const $config = useRuntimeConfig();
 const { $socket, $toast } = useNuxtApp();
 
-const { isLive } = await $fetch("/api/live");
+const { isLive } = await $fetch($config.LIVE_URL);
 
 const live = ref(isLive);
 
@@ -28,3 +34,6 @@ $socket.on("streamInfo", (e) => {
   useHead({ title });
 });
 </script>
+
+
+

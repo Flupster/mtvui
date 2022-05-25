@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     "~/assets/style.css",
     "@fortawesome/fontawesome-free/css/all.css",
   ],
-  io: { sockets: [{ name: "main", url: "/" }] },
+  io: { sockets: [{ name: "main", url: process.env.SOCKETIO_URL }] },
   app: {
     head: {
       title: "Minusten.TV",
@@ -23,6 +23,8 @@ export default defineNuxtConfig({
       ],
     },
   },
-  publicRuntimeConfig: undefined,
-  privateRuntimeConfig: undefined,
+  publicRuntimeConfig: {
+    LIVE_URL: process.env.LIVE_URL,
+    FLV_URL: process.env.FLV_URL,
+  },
 });

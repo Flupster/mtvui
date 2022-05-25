@@ -3,8 +3,9 @@ import videojs from "video.js";
 import "videojs-flvjs-es6";
 import vjsPlugins from "../vjs";
 const { $socket } = useNuxtApp();
+const $config = useRuntimeConfig();
 
-const src = { type: "video/x-flv", src: `stream.flv` };
+const src = { type: "video/x-flv", src: $config.FLV_URL };
 
 const videoOptions = {
   techOrder: ["flvjs", "html5"],
