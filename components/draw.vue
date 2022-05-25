@@ -63,7 +63,7 @@ onMounted(() => {
     <div v-for="[id, pos] in cursors" :key="id">
       <img
         class="cursor"
-        src="~/assets/cursor.png"
+        src="/cursor.png"
         :style="`left: ${pos.x}px; top: ${pos.y}px;`"
       />
     </div>
