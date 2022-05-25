@@ -23,6 +23,12 @@ $socket.on("streamEnd", () => {
   live.value = false;
   $toast.error("Stream has ended");
 });
+
+$socket.on("streamInfo", (e) => {
+  const streamTitle = e.meta.arguments?.title;
+  const title = streamTitle ? `Minusten.TV - ${streamTitle}` : "Minusten.TV";
+  useHead({ title });
+});
 </script>
 
 
