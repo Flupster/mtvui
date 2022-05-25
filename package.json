@@ -5,7 +5,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "deploy": "nuxt build; nuxt generate; scp -r .output/public/* silas@minusten.tv:/var/www/minusten.tv"
+    "deploy": "nuxt generate; scp -r .output/public/* silas@minusten.tv:/var/www/minusten.tv"
   },
   "devDependencies": {
     "nuxt": "^3.0.0-rc.3"
