@@ -61,18 +61,9 @@ onMounted(() => {
 <template>
   <div>
     <div v-for="[id, pos] in cursors" :key="id">
-      <img
-        class="cursor"
-        src="/cursor.png"
-        :style="`left: ${pos.x}px; top: ${pos.y}px;`"
-      />
+      <img class="cursor" src="/cursor.png" :style="`left: ${pos.x}px; top: ${pos.y}px;`" />
     </div>
 
-    <div
-      id="draw-container"
-      @mousedown="mousedown"
-      @mousemove="mousemove"
-      @mouseleave="mouseleave"
-    />
+    <div id="draw-container" @mousedown="mousedown" @mousemove="mousemove" @mouseleave="mouseleave" />
   </div>
 </template>
