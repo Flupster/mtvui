@@ -14,18 +14,20 @@ class ZoomPlugin extends Plugin {
   }
 
   onKeyUp(e) {
+    const scale = e.altKey ? this.scale / 2 : this.scale;
+    
     switch (e.key) {
       // Zoom out
       case "1":
-        this.setZoom(this.x - this.scale, this.y - this.scale);
+        this.setZoom(this.x - scale, this.y - scale);
         break;
       // shrink height
       case "2":
-        this.setZoom(this.x, this.y - this.scale);
+        this.setZoom(this.x, this.y - scale);
         break;
       // shrink width
       case "4":
-        this.setZoom(this.x - this.scale, this.y);
+        this.setZoom(this.x - scale, this.y);
         break;
       // reset height and width
       case "5":
@@ -33,7 +35,7 @@ class ZoomPlugin extends Plugin {
         break;
       // stretch width
       case "6":
-        this.setZoom(this.x + this.scale, this.y);
+        this.setZoom(this.x + scale, this.y);
         break;
       // 21:9 aspect ratio zoom
       case "7":
@@ -41,11 +43,11 @@ class ZoomPlugin extends Plugin {
         break;
       // stretch height
       case "8":
-        this.setZoom(this.x, this.y + this.scale);
+        this.setZoom(this.x, this.y + scale);
         break;
       // zoom in
       case "9":
-        this.setZoom(this.x + this.scale, this.y + this.scale);
+        this.setZoom(this.x + scale, this.y + scale);
         break;
     }
   }
