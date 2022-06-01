@@ -7,7 +7,7 @@ class VolumePlugin extends Plugin {
     super(player);
     this.player = player;
     this.volume = localStorage.getItem("volume") ?? 1;
-    
+
     this.player.on("volumechange", this.onVolumeChange.bind(this));
     this.player.on("play", () => this.player.volume(this.volume));
 
@@ -23,7 +23,22 @@ class VolumePlugin extends Plugin {
     // Keybinds for scroll wheel to change volume
     player.on("wheel", (e) => {
       if (player.muted() && !player.nointeract) player.muted(false);
-      player.volume(player.volume() - e.deltaY / 3000);
+      player.volume(player.volume() - e.deltaY / (e.altKey ? 6000 : 3000));
+    });
+
+    // Keybinds for arrow keys to change volume
+    player.on("keyup", (e) => {
+      switch (e.key) {
+        case "m":
+          player.muted(!player.muted());
+          break;
+        case "ArrowUp":
+          player.volume(player.volume() + (e.altKey ? 0.02 : 0.04));
+          break;
+        case "ArrowDown":
+          player.volume(player.volume() - (e.altKey ? 0.02 : 0.04));
+          break;
+      }
     });
   }
 
