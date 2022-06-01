@@ -63,10 +63,10 @@ video,
 
 .vjs-control-elapsed {
   position: absolute;
-  width: 100px;
+  width: 200px;
   bottom: 12px;
   text-align: center;
-  left: calc(50vw - (100px / 2));
+  left: calc(50vw - (200px / 2));
 }
 
 /* Sync status */

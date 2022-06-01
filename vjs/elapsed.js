@@ -1,11 +1,24 @@
 import videojs from "video.js";
 
+const secondsToHHMMSS = (s) => {
+  const totalSeconds = parseInt(s / 1000, 10);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor(totalSeconds / 60) % 60;
+  const seconds = totalSeconds % 60;
+
+  return [hours, minutes, seconds]
+    .map((v) => (v < 10 ? "0" + v : v))
+    .filter((v, i) => v !== "00" || i > 0)
+    .join(":");
+};
+
 const Component = videojs.getComponent("Component");
 const elapsedComponent = videojs.extend(Component, {
   constructor: function (player) {
     Component.apply(this, arguments);
 
     this.player = player;
+    this.duration = null;
     this.serverTime = 0;
     this.startTime = 0;
     this.firstPlay = 0;
@@ -17,6 +30,12 @@ const elapsedComponent = videojs.extend(Component, {
 
     player.socket.on("streamInfo", (data) => {
       if (!data.meta.isLive) return;
+
+      if (data.meta.arguments?.duration) {
+        const duration = parseFloat(data.meta.arguments.duration) * 1000;
+        if (!isNaN(duration)) this.duration = duration;
+      }
+
       this.calculateOffset(data.servertime);
       this.setStartTime(data.meta.startTime);
       this.start();
@@ -42,6 +61,7 @@ const elapsedComponent = videojs.extend(Component, {
   stop() {
     if (!this.active) return;
     clearInterval(this.interval);
+    this.duration = null;
     this.active = false;
     this.el().innerHTML = "";
   },
@@ -51,18 +71,14 @@ const elapsedComponent = videojs.extend(Component, {
     const missingTime = this.firstPlay - (this.startTime + this.offset);
     const elapsed = currentTime + missingTime;
 
-    //convert seconds to HH:MM:SS
-    const totalSeconds = parseInt(elapsed / 1000, 10);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor(totalSeconds / 60) % 60;
-    const seconds = totalSeconds % 60;
-
-    const time = [hours, minutes, seconds]
-      .map((v) => (v < 10 ? "0" + v : v))
-      .filter((v, i) => v !== "00" || i > 0)
-      .join(":");
-
-    this.el().innerHTML = time;
+    if (this.duration) {
+      const time = secondsToHHMMSS(elapsed);
+      const duration = secondsToHHMMSS(this.duration);
+      this.el().innerHTML = `${time} / ${duration}`;
+    } else {
+      const time = secondsToHHMMSS(elapsed);
+      this.el().innerHTML = time;
+    }
   },
 
   calculateOffset(serverTime) {
