@@ -13,9 +13,9 @@ const secondsToHHMMSS = (s) => {
 };
 
 const Component = videojs.getComponent("Component");
-const elapsedComponent = videojs.extend(Component, {
-  constructor: function (player) {
-    Component.apply(this, arguments);
+class elapsedComponent extends Component {
+  constructor(player) {
+    super(player);
 
     this.player = player;
     this.duration = null;
@@ -44,19 +44,19 @@ const elapsedComponent = videojs.extend(Component, {
     player.socket.on("streamEnd", () => this.stop());
 
     player.on("firstplay", () => (this.firstPlay = +new Date()));
-  },
+  }
 
-  createEl: function () {
+  createEl() {
     return videojs.dom.createEl("div", {
       className: "vjs-control-elapsed",
     });
-  },
+  }
 
   start() {
     if (this.active) return;
     this.active = true;
     this.interval = setInterval(this.updateTime.bind(this), 1000);
-  },
+  }
 
   stop() {
     if (!this.active) return;
@@ -64,7 +64,7 @@ const elapsedComponent = videojs.extend(Component, {
     this.duration = null;
     this.active = false;
     this.el().innerHTML = "";
-  },
+  }
 
   updateTime() {
     const currentTime = this.player.currentTime() * 1000;
@@ -79,16 +79,16 @@ const elapsedComponent = videojs.extend(Component, {
       const time = secondsToHHMMSS(elapsed);
       this.el().innerHTML = time;
     }
-  },
+  }
 
   calculateOffset(serverTime) {
     this.serverTime = serverTime;
     this.offset = +new Date() - +new Date(this.serverTime);
-  },
+  }
 
   setStartTime(startTime) {
     this.startTime = +new Date(startTime);
-  },
-});
+  }
+}
 
 videojs.registerComponent("Elapsed", elapsedComponent);

@@ -1,27 +1,27 @@
 import videojs from "video.js";
 
 const Component = videojs.getComponent("Component");
-const TitleBar = videojs.extend(Component, {
-  constructor: function (player) {
-    Component.apply(this, arguments);
 
-    // Set title from socket message
+class TitleBar extends Component {
+  constructor(player) {
+    super(player);
+
     player.socket.on("streamInfo", (info) => {
       if (!info.meta.arguments?.title) return;
       this.updateTitle(info.meta.arguments.title);
     });
 
-    player.socket.on("streamEnd", () => this.updateTitle());
-  },
+    player.socket.on("streamEnd", this.updateTitle.bind(this));
+  }
 
-  createEl: function () {
+  createEl() {
     return videojs.dom.createEl("div", { className: "vjs-title-bar" });
-  },
+  }
 
-  updateTitle: function (title) {
+  updateTitle(title) {
     videojs.dom.emptyEl(this.el());
     videojs.dom.appendContent(this.el(), title);
-  },
-});
+  }
+}
 
 videojs.registerComponent("TitleBar", TitleBar);

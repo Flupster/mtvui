@@ -1,9 +1,10 @@
 import videojs from "video.js";
 
 const Button = videojs.getComponent("Button");
-const ViewerButton = videojs.extend(Button, {
-  constructor: function (player) {
-    Button.apply(this, arguments);
+
+class ViewerButton extends Button {
+  constructor(player) {
+    super(player);
 
     // Set viewers count from socket message
     player.socket.on("streamInfo", (info) => {
@@ -16,17 +17,17 @@ const ViewerButton = videojs.extend(Button, {
         player.currentTime(player.liveTracker.liveCurrentTime() - 5);
       }
     });
-  },
+  }
 
-  createEl: function () {
+  createEl() {
     return videojs.dom.createEl("button", {
       className: "vjs-viewers-control vjs-control vjs-button",
     });
-  },
+  }
 
-  updateViewers: function (viewers) {
+  updateViewers(viewers) {
     this.el().innerHTML = `<i class="far fa-eye"></i> &nbsp; ${viewers}`;
-  },
-});
+  }
+}
 
 videojs.registerComponent("ViewerButton", ViewerButton);
