@@ -16,7 +16,7 @@
     "bootstrap-vue-3": "^0.1.13",
     "flv.js": "^1.6.2",
     "gradient-color": "^2.0.1",
-    "nuxt-socket-io": "^3.0.8",
+    "nuxt-socket-io": "^3.0.9",
     "parseqs": "^0.0.6",
     "parseuri": "^0.0.6",
     "video.js": "^7.20.1",
