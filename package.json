@@ -7,10 +7,12 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "nuxt": "^3.0.0-rc.3"
+    "nuxt": "^3.0.0-rc.4"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
+    "@nuxtjs/composition-api": "^0.32.0",
+    "@pinia/nuxt": "^0.1.9",
     "backo2": "^1.0.2",
     "bootstrap": "^5.2.0-beta1",
     "bootstrap-vue-3": "^0.1.13",
@@ -19,6 +21,8 @@
     "nuxt-socket-io": "^3.0.9",
     "parseqs": "^0.0.6",
     "parseuri": "^0.0.6",
+    "pinia": "^2.0.14",
+    "pinia-plugin-persistedstate": "^1.6.1",
     "video.js": "^7.20.1",
     "videojs-flvjs-es6": "^1.0.1",
     "vue-toastification": "^2.0.0-rc.5",
