@@ -6,7 +6,7 @@ class VolumePlugin extends Plugin {
   constructor(player) {
     super(player);
     this.player = player;
-    this.volume = localStorage.getItem("volume") ?? 1;
+    this.volume = player.settings.volume
 
     this.player.on("volumechange", this.onVolumeChange.bind(this));
     this.player.on("play", () => this.player.volume(this.volume));
@@ -46,7 +46,7 @@ class VolumePlugin extends Plugin {
     if (this.player.muted()) return;
 
     this.volume = this.player.volume();
-    localStorage.setItem("volume", this.volume);
+    this.player.settings.volume = this.volume;
   }
 }
 

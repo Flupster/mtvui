@@ -2,6 +2,7 @@ import { defineNuxtConfig } from "nuxt";
 
 export default defineNuxtConfig({
   ssr: false,
+  buildModules: ["@pinia/nuxt"],
   modules: ["bootstrap-vue-3/nuxt", "nuxt-socket-io"],
   css: [
     "bootstrap/dist/css/bootstrap.css",

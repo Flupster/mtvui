@@ -1,11 +1,12 @@
 <script setup>
+import { useStore } from "@/stores/video";
 import videojs from "video.js";
 import "videojs-flvjs-es6";
 import vjsPlugins from "../vjs";
 const { $socket } = useNuxtApp();
-const $config = useRuntimeConfig();
 
-const src = { type: "video/x-flv", src: $config.FLV_URL };
+const settings = useStore()
+const src = { type: "video/x-flv", src: settings.mirror };
 
 const videoOptions = {
   techOrder: ["flvjs", "html5"],
@@ -21,6 +22,7 @@ const videoOptions = {
 onMounted(() => {
   const player = videojs("video", videoOptions);
   player.socket = $socket;
+  player.settings = settings;
 
   vjsPlugins(player);
 

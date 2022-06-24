@@ -61,8 +61,7 @@ class SyncerPlugin extends Plugin {
   }
 
   getLevel() {
-    const storage = parseInt(localStorage.getItem("syncer-level"));
-    const level = isNaN(storage) ? 2 : storage;
+    const level = this.player.settings.syncerlevel;
     if (level < 0) this.disable();
 
     return level;
@@ -98,7 +97,7 @@ class SyncerPlugin extends Plugin {
   }
 
   set leveli(val) {
-    localStorage.setItem("syncer-level", val);
+    this.player.settings.syncerlevel = val;
     this._leveli = val;
   }
 
