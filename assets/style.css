@@ -55,10 +55,15 @@ video,
 
 .video-js .vjs-viewers-control,
 .vjs-control-amplifier,
+.vjs-mirror-control,
 .vjs-control-help,
 .vjs-control-elapsed,
 .vjs-title-bar {
   font-size: 1.5em !important;
+}
+
+.vjs-mirror-off {
+  opacity: 33%;
 }
 
 .vjs-control-elapsed {
