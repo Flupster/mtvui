@@ -23,6 +23,7 @@ class elapsedComponent extends Component {
     this.startTime = 0;
     this.firstPlay = 0;
     this.active = false;
+    this.remaining = player.settings.remainingview;
 
     this.interval = null;
 
@@ -44,12 +45,16 @@ class elapsedComponent extends Component {
     player.socket.on("streamEnd", () => this.stop());
 
     player.on("firstplay", () => (this.firstPlay = +new Date()));
+
+    this.on("click", () => {
+      this.remaining = !this.remaining;
+      player.settings.remainingview = this.remaining;
+      this.updateTime();
+    });
   }
 
   createEl() {
-    return videojs.dom.createEl("div", {
-      className: "vjs-control-elapsed",
-    });
+    return videojs.dom.createEl("div", { className: "vjs-control-elapsed" });
   }
 
   start() {
@@ -70,6 +75,12 @@ class elapsedComponent extends Component {
     const currentTime = this.player.currentTime() * 1000;
     const missingTime = this.firstPlay - (this.startTime + this.offset);
     const elapsed = currentTime + missingTime;
+
+    if (this.remaining) {
+      const remaining = secondsToHHMMSS(this.duration - elapsed);
+      this.el().innerHTML = `${remaining}`;
+      return;
+    }
 
     if (this.duration) {
       const time = secondsToHHMMSS(elapsed);
