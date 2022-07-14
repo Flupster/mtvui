@@ -7,6 +7,7 @@ import "./zoom";
 import "./interact";
 import "./fullscreen";
 import "./syncer";
+import "./mirror";
 
 export default function (player) {
   // Plugins
@@ -20,5 +21,6 @@ export default function (player) {
   player.addChild("TitleBar"); // Adds the title bar
   player.controlBar.addChild("Amplifier", {}, 2); // amplify the volume
   player.controlBar.addChild("ViewerButton", {}, 15); // viewer count
+  player.controlBar.addChild("MirrorButton", {}, 16); // viewer count
   player.controlBar.addChild("Elapsed", {}, 20); // stream time elapsed
 }
