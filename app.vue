@@ -5,7 +5,8 @@
     </div>
 
     <div v-show="!live" class="h-100">
-      <quotes />
+      <lightsout v-if="game" />
+      <quotes v-else />
     </div>
   </b-container>
 </template>
@@ -33,7 +34,6 @@ $socket.on("streamInfo", (e) => {
   const title = streamTitle ? `Minusten.TV - ${streamTitle}` : "Minusten.TV";
   useHead({ title });
 });
+
+const game = Math.random() > 0.8;
 </script>
-
-
-
