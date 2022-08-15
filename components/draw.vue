@@ -44,7 +44,6 @@ $socket.on("mtv-mouseleave", (msg) => cursors.delete(msg));
 $socket.on("mtv-disconnect", (msg) => cursors.delete(msg));
 
 $socket.on("mtv-draw", (msg) => {
-  console.log({ "mtv-draw": msg });
   ctx.beginPath();
   ctx.lineWidth = 2;
   ctx.lineCap = "round";
