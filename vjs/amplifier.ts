@@ -1,8 +1,13 @@
-import videojs from "video.js";
+import videojs, { VideoJsPlayer } from "video.js";
 import gradient from "gradient-color";
 
 const Button = videojs.getComponent("Button");
 class Amplifier extends Button {
+  amplifier: GainNode;
+  gain: number;
+  level: number;
+  colors: gradient;
+
   constructor(player) {
     super(player);
     this.player = player;
@@ -24,9 +29,9 @@ class Amplifier extends Button {
   }
 
   createAmplifier(value) {
-    const context = new (AudioContext || webkitAudioContext)();
+    const context = new AudioContext();
     const source = context.createMediaElementSource(
-      this.player.el().getElementsByTagName("video")[0]
+      this.el().getElementsByTagName("video")[0]
     );
 
     const gain = context.createGain();
@@ -41,10 +46,10 @@ class Amplifier extends Button {
     value > this.gain ? this.level++ : this.level--;
 
     if (this.level === 10) {
-      return (this.el().style.color = null);
+      return this.el().removeAttribute("style");
     }
 
-    this.el().style.color = this.colors[this.level];
+    this.el().setAttribute("style", `color: ${this.colors[this.level]};`);
   }
 
   changeAmplification(value) {

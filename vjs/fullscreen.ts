@@ -1,9 +1,9 @@
-import videojs from "video.js";
+import videojs, { VideoJsPlayer } from "video.js";
 
 const Plugin = videojs.getPlugin("plugin");
 
 class FullscreenPlugin extends Plugin {
-  constructor(player) {
+  constructor(player: VideoJsPlayer) {
     super(player);
     this.player = player;
 

@@ -1,9 +1,20 @@
-import videojs from "video.js";
+import videojs, { VideoJsPlayer } from "video.js";
+
+declare module "video.js" {
+  interface VideoJsPlayer {
+    zoom: ZoomPlugin;
+  }
+}
 
 const Plugin = videojs.getPlugin("plugin");
 
 class ZoomPlugin extends Plugin {
-  constructor(player) {
+  x: number;
+  y: number;
+  scale: number;
+  video: HTMLVideoElement;
+
+  constructor(player: VideoJsPlayer) {
     super(player);
     this.x = 1;
     this.y = 1;
@@ -13,9 +24,9 @@ class ZoomPlugin extends Plugin {
     player.on("keyup", this.onKeyUp.bind(this));
   }
 
-  onKeyUp(e) {
+  onKeyUp(e: KeyboardEvent) {
     const scale = e.altKey ? this.scale / 2 : this.scale;
-    
+
     switch (e.key) {
       // Zoom out
       case "1":
@@ -52,7 +63,7 @@ class ZoomPlugin extends Plugin {
     }
   }
 
-  setZoom(x, y) {
+  setZoom(x: number, y: number): void {
     this.x = x;
     this.y = y;
     this.video.style.transform = `scale(${x},${y})`;

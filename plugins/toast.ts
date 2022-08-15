@@ -1,3 +1,4 @@
+import { defineNuxtPlugin } from "#app";
 import Toast, { useToast } from "vue-toastification";
 
 import "vue-toastification/dist/index.css";

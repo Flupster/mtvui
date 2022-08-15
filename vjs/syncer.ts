@@ -1,9 +1,23 @@
-import videojs from "video.js";
+import videojs, { VideoJsPlayer } from "video.js";
 import { useToast } from "vue-toastification";
+
+type SyncerLevel = {
+  name: number;
+  threshold: number;
+  pbr_max: number;
+  pbr_min: number;
+};
 
 const Plugin = videojs.getPlugin("plugin");
 class SyncerPlugin extends Plugin {
-  constructor(player) {
+  enabled: boolean;
+  target: number;
+  toast: any;
+  levels: SyncerLevel[];
+
+  private _leveli: any;
+
+  constructor(player: VideoJsPlayer) {
     super(player);
     this.player = player;
     this.enabled = true;

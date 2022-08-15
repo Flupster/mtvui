@@ -1,4 +1,5 @@
-import videojs from "video.js";
+// @ts-nocheck (createEl is not assignable bug)
+import videojs, { VideoJsPlayer } from "video.js";
 
 const Button = videojs.getComponent("Button");
 const mirrors = [
@@ -7,7 +8,7 @@ const mirrors = [
 ];
 
 class MirrorButton extends Button {
-  constructor(player) {
+  constructor(player: VideoJsPlayer) {
     super(player);
 
     player.on("play", () => {
@@ -23,7 +24,7 @@ class MirrorButton extends Button {
     });
   }
 
-  createEl() {
+  createEl(): Element {
     return videojs.dom.createEl("button", {
       className: "vjs-mirror-control vjs-control vjs-button",
       innerHTML: '<i class="fa fa-cloud"></i>',

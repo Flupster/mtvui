@@ -1,9 +1,9 @@
-import videojs from "video.js";
+import videojs, { VideoJsPlayer } from "video.js";
 
 const Component = videojs.getComponent("Component");
 
 class TitleBar extends Component {
-  constructor(player) {
+  constructor(player: VideoJsPlayer) {
     super(player);
 
     player.socket.on("streamInfo", (info) => {

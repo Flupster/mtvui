@@ -9,7 +9,7 @@ import "./fullscreen";
 import "./syncer";
 import "./mirror";
 
-export default function (player) {
+export default (player) => {
   // Plugins
   player.interact(); // solve the interact with dom to play audio problem
   player.zoom(); // hotkeys to scale the video
@@ -23,4 +23,4 @@ export default function (player) {
   player.controlBar.addChild("ViewerButton", {}, 15); // viewer count
   player.controlBar.addChild("MirrorButton", {}, 16); // viewer count
   player.controlBar.addChild("Elapsed", {}, 20); // stream time elapsed
-}
+};

@@ -1,9 +1,15 @@
-<script setup>
-const quotes = await $fetch("https://murcord.minusten.tv/api/discordquotes");
-const quote = ref({});
-let timeout = null;
+<script setup lang="ts">
+import { Ref } from "@vue/reactivity";
+import { DiscordQuote } from "~~/types";
 
-const nextQuote = () => {
+const quotes: DiscordQuote[] = await $fetch(
+  "https://murcord.minusten.tv/api/discordquotes"
+);
+
+const quote: Ref<DiscordQuote> = ref(null);
+let timeout: NodeJS.Timeout = null;
+
+const nextQuote = (): void => {
   clearTimeout(timeout);
   quote.value = quotes[Math.floor(Math.random() * quotes.length)];
   timeout = setTimeout(nextQuote, 15000);

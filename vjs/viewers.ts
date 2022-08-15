@@ -1,9 +1,10 @@
-import videojs from "video.js";
+// @ts-nocheck (createEl is not assignable bug)
+import videojs, { VideoJsPlayer } from "video.js";
 
 const Button = videojs.getComponent("Button");
 
 class ViewerButton extends Button {
-  constructor(player) {
+  constructor(player: VideoJsPlayer) {
     super(player);
 
     // Set viewers count from socket message
@@ -19,7 +20,7 @@ class ViewerButton extends Button {
     });
   }
 
-  createEl() {
+  createEl(): Element {
     return videojs.dom.createEl("button", {
       className: "vjs-viewers-control vjs-control vjs-button",
     });

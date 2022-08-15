@@ -1,7 +1,7 @@
-import videojs from "video.js";
+import videojs, { VideoJsPlayer } from "video.js";
 
-const secondsToHHMMSS = (s) => {
-  const totalSeconds = parseInt(s / 1000, 10);
+const secondsToHHMMSS = (s: number): string => {
+  const totalSeconds = Math.round(s / 1000);
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor(totalSeconds / 60) % 60;
   const seconds = totalSeconds % 60;
@@ -14,14 +14,25 @@ const secondsToHHMMSS = (s) => {
 
 const Component = videojs.getComponent("Component");
 class elapsedComponent extends Component {
-  constructor(player) {
+  vjsPlayer: VideoJsPlayer;
+  duration: number;
+  serverTime: number;
+  startTime: number;
+  firstPlay: number;
+  active: boolean;
+  remaining: VideoJsPlayer["settings"]["remainingview"];
+  interval: NodeJS.Timer;
+  offset: number;
+
+  constructor(player: VideoJsPlayer) {
     super(player);
 
-    this.player = player;
+    this.vjsPlayer = player;
     this.duration = null;
     this.serverTime = 0;
     this.startTime = 0;
     this.firstPlay = 0;
+    this.offset = 0;
     this.active = false;
     this.remaining = player.settings.remainingview;
 
@@ -72,7 +83,7 @@ class elapsedComponent extends Component {
   }
 
   updateTime() {
-    const currentTime = this.player.currentTime() * 1000;
+    const currentTime = this.vjsPlayer.currentTime() * 1000;
     const missingTime = this.firstPlay - (this.startTime + this.offset);
     const elapsed = currentTime + missingTime;
 

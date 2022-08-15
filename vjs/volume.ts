@@ -1,12 +1,14 @@
-import videojs from "video.js";
+import videojs, { VideoJsPlayer } from "video.js";
 
 const Plugin = videojs.getPlugin("plugin");
 
 class VolumePlugin extends Plugin {
-  constructor(player) {
+  volume: number;
+
+  constructor(player: VideoJsPlayer) {
     super(player);
     this.player = player;
-    this.volume = player.settings.volume
+    this.volume = player.settings.volume;
 
     this.player.on("volumechange", this.onVolumeChange.bind(this));
     this.player.on("play", () => this.player.volume(this.volume));

@@ -11,13 +11,15 @@
   </b-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { Ref } from "vue";
+import { StreamMeta } from "./types";
+
 const $config = useRuntimeConfig();
 const { $socket, $toast } = useNuxtApp();
 
-const { isLive } = await $fetch($config.LIVE_URL);
-
-const live = ref(isLive);
+const { isLive }: StreamMeta = await $fetch($config.LIVE_URL);
+const live: Ref<boolean> = ref(isLive);
 
 $socket.on("streamStart", () => {
   live.value = true;
@@ -35,5 +37,5 @@ $socket.on("streamInfo", (e) => {
   useHead({ title });
 });
 
-const game = Math.random() > 0.8;
+const game: boolean = Math.random() > 0.8;
 </script>

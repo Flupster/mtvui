@@ -1,12 +1,14 @@
-<script setup>
+<script setup lang="ts">
 class LightsOut {
-  constructor(size) {
+  size: number;
+  state: boolean[];
+  complete: boolean;
+
+  constructor(size: number) {
     this.size = size;
     this.state = [];
     this.generateState();
     this.complete = false;
-    this.moves = 0;
-    this.timer = 0;
   }
 
   generateState() {
@@ -20,7 +22,7 @@ class LightsOut {
     this.state = solved;
   }
 
-  neighbours(i) {
+  neighbours(i: number) {
     return [
       i < this.size ? false : i - this.size,
       (i + 1) % this.size === 0 ? false : i + 1,
@@ -38,7 +40,6 @@ class LightsOut {
     this.flip(index);
 
     this.complete = this.state.every((x) => x === false);
-    this.moves++;
   }
 
   solve() {

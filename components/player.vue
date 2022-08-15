@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { useStore } from "@/stores/video";
 import videojs from "video.js";
 import "videojs-flvjs-es6";
 import vjsPlugins from "../vjs";
 const { $socket } = useNuxtApp();
 
-const settings = useStore()
+const settings = useStore();
 const src = { type: "video/x-flv", src: settings.mirror };
 
 const videoOptions = {
