@@ -14,7 +14,6 @@ class InteractPlugin extends Plugin {
   toast: any;
   constructor(player: VideoJsPlayer) {
     super(player);
-    console.log(this.player);
     this.toast = useToast();
   }
 
