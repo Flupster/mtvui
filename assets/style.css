@@ -72,6 +72,7 @@ video,
   bottom: 12px;
   text-align: center;
   left: calc(50vw - (200px / 2));
+  cursor: pointer;
 }
 
 /* Sync status */
