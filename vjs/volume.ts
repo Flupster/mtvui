@@ -7,7 +7,6 @@ class VolumePlugin extends Plugin {
 
   constructor(player: VideoJsPlayer) {
     super(player);
-    this.player = player;
     this.volume = player.settings.volume;
 
     this.player.on("volumechange", this.onVolumeChange.bind(this));

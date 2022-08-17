@@ -27,7 +27,6 @@ class elapsedComponent extends Component {
   constructor(player: VideoJsPlayer) {
     super(player);
 
-    this.vjsPlayer = player;
     this.duration = null;
     this.serverTime = 0;
     this.startTime = 0;
@@ -83,7 +82,7 @@ class elapsedComponent extends Component {
   }
 
   updateTime() {
-    const currentTime = this.vjsPlayer.currentTime() * 1000;
+    const currentTime = this.player().currentTime() * 1000;
     const missingTime = this.firstPlay - (this.startTime + this.offset);
     const elapsed = currentTime + missingTime;
 

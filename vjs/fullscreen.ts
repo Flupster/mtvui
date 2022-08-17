@@ -5,7 +5,6 @@ const Plugin = videojs.getPlugin("plugin");
 class FullscreenPlugin extends Plugin {
   constructor(player: VideoJsPlayer) {
     super(player);
-    this.player = player;
 
     player.on("dblclick", (e) => {
       if (e.target.nodeName === "DIV") {

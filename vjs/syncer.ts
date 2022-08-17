@@ -19,7 +19,6 @@ class SyncerPlugin extends Plugin {
 
   constructor(player: VideoJsPlayer) {
     super(player);
-    this.player = player;
     this.enabled = true;
     this.target = 5000;
     this.toast = useToast();

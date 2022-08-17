@@ -1,4 +1,4 @@
-import videojs, { VideoJsPlayer } from "video.js";
+import videojs from "video.js";
 import gradient from "gradient-color";
 
 const Button = videojs.getComponent("Button");
@@ -10,7 +10,6 @@ class Amplifier extends Button {
 
   constructor(player) {
     super(player);
-    this.player = player;
 
     this.amplifier;
     this.gain = 1;
@@ -31,7 +30,7 @@ class Amplifier extends Button {
   createAmplifier(value) {
     const context = new AudioContext();
     const source = context.createMediaElementSource(
-      this.el().getElementsByTagName("video")[0]
+      this.player().el().getElementsByTagName("video")[0]
     );
 
     const gain = context.createGain();

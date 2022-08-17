@@ -1,6 +1,4 @@
 import "video.js";
-import "#app";
-import "@vue/runtime-core";
 
 interface PlayerSettings {
   remainingview: boolean;
@@ -26,9 +24,7 @@ interface DiscordQuote {
 }
 
 interface StreamMeta {
-  arguments?: {
-    [key: string]: string;
-  };
+  arguments?: { [key: string]: string };
   bitrate: number;
   duration: number;
   isLive: boolean;
@@ -65,7 +61,6 @@ declare module "video.js" {
     // Bad typescript definition
     log(message?: any, ...optionalParams: any[]);
     play(...args: any[]): Promise<any>; // Videojs type doesn't support arguments
-    currentTime(): number;
   }
 }
 
