@@ -21,6 +21,12 @@ export default defineNuxtConfig({
           name: "description",
           content: "Streaming movies with your friends :smile:",
         },
+        { name: "theme-color", content: "#5B5B5B" },
+      ],
+      link: [
+        { hid: "icon", rel: "icon", type: "image/png", href: "/logo.png" },
+        { hid: "apple-touch-icon", rel: "apple-touch-icon", href: "/logo.png" },
+        { rel: "manifest", href: "/manifest.json" },
       ],
     },
   },

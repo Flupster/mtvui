@@ -1,0 +1,16 @@
+{
+  "name": "Minusten.TV",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "types": "img/png",
+      "sizes": "256x256",
+      "purpose": "any"
+    }
+  ],
+  "id": "1",
+  "start_url": "/?source=pwa",
+  "display": "fullscreen",
+  "background_color": "#000000",
+  "theme_color": "#5B5B5B"
+}
