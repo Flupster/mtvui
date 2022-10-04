@@ -38,7 +38,7 @@ class SubtitlePlugin extends Plugin {
     await Promise.all(json.map((s) => this.addSubtitles(s)));
 
     this.player.one("missingTime", (_: any, missingTime: number) => {
-      this.offsetSubtitles(-missingTime + 3);
+      this.offsetSubtitles(-missingTime / 1000 + 3);
     });
   }
 
