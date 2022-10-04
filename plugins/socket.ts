@@ -6,5 +6,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     transports: ["websocket"],
   });
 
+  window.$socket = socket;
+
   return { provide: { socket } };
 });

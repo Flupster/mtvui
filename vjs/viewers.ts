@@ -8,7 +8,7 @@ class ViewerButton extends Button {
     super(player);
 
     // Set viewers count from socket message
-    player.socket.on("streamInfo", (info) => {
+    window.$socket.on("streamInfo", (info) => {
       this.updateViewers(info.meta.viewers);
     });
 

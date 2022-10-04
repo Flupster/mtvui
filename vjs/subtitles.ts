@@ -10,6 +10,7 @@ class SubtitlePlugin extends Plugin {
 
   constructor(player: VideoJsPlayer) {
     super(player);
+    this.player = player;
     this.toast = useToast();
 
     // Manual Offset
@@ -33,11 +34,12 @@ class SubtitlePlugin extends Plugin {
   async getSubtitles() {
     const req = await fetch("https://minusten.tv/subtitles/list");
     const json = (await req.json()) as string[];
-    
+
     await Promise.all(json.map((s) => this.addSubtitles(s)));
 
-    const missingTime = this.player.missingTime / 1000;
-    this.offsetSubtitles(-missingTime + 3);
+    this.player.one("missingTime", (_: any, missingTime: number) => {
+      this.offsetSubtitles(-missingTime + 3);
+    });
   }
 
   addSubtitles(src: string): Promise<void> {

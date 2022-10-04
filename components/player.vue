@@ -21,7 +21,6 @@ const videoOptions = {
 
 onMounted(() => {
   const player = videojs("video", videoOptions);
-  player.socket = $socket;
   player.settings = settings;
 
   vjsPlugins(player);

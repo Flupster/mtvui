@@ -56,8 +56,6 @@ interface SocketEvents {
 declare module "video.js" {
   interface VideoJsPlayer {
     settings: PlayerSettings;
-    socket: SocketEvents;
-    missingTime: number;
 
     // Bad typescript definition
     log(message?: any, ...optionalParams: any[]);
@@ -67,6 +65,12 @@ declare module "video.js" {
 
 declare module "#app" {
   interface NuxtApp {
+    $socket: SocketEvents;
+  }
+}
+
+declare global {
+  interface Window {
     $socket: SocketEvents;
   }
 }

@@ -140,25 +140,31 @@ class SyncerPlugin extends Plugin {
 }
 
 const Component = videojs.getComponent("Component");
-const SyncerComponent = videojs.extend(Component, {
-  constructor: function (player) {
-    Component.apply(this, arguments);
+class SyncerComponent extends Component {
+  constructor(player) {
+    super(player);
 
-    player.on("startsyncing", () => (this.el().style.opacity = 0.5));
-    player.on("stopsyncing", () => (this.el().style.opacity = 0));
-    player.on("deviance", (_, deviance) => this.updateEl(deviance));
-  },
+    player.on("startsyncing", () => this.changeState(true));
+    player.on("stopsyncing", () => this.changeState(false));
+    player.on("deviance", (_: any, deviance: number) =>
+      this.updateEl(deviance)
+    );
+  }
 
-  createEl: function () {
+  changeState(show: Boolean) {
+    this.el().setAttribute("style", `opacity: ${show ? 0.5 : 0};`);
+  }
+
+  createEl() {
     const el = videojs.dom.createEl("div", { className: "vjs-sync-status" });
     el.innerHTML = "🔴";
-    return el;
-  },
+    return el as HTMLElement;
+  }
 
-  updateEl: function (deviance) {
+  updateEl(deviance: number) {
     this.el().innerHTML = `🔴 ${(deviance / 1000).toFixed(2)}s`;
-  },
-});
+  }
+}
 
 videojs.registerPlugin("syncer", SyncerPlugin);
 videojs.registerComponent("syncer", SyncerComponent);

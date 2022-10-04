@@ -6,12 +6,12 @@ class TitleBar extends Component {
   constructor(player: VideoJsPlayer) {
     super(player);
 
-    player.socket.on("streamInfo", (info) => {
+    window.$socket.on("streamInfo", (info) => {
       if (!info.meta.arguments?.title) return;
       this.updateTitle(info.meta.arguments.title);
     });
 
-    player.socket.on("streamEnd", this.updateTitle.bind(this));
+    window.$socket.on("streamEnd", this.updateTitle.bind(this));
   }
 
   createEl() {

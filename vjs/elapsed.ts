@@ -40,7 +40,7 @@ class elapsedComponent extends Component {
 
     this.el().innerHTML = "";
 
-    player.socket.on("streamInfo", (data) => {
+    window.$socket.on("streamInfo", (data) => {
       if (!data.meta.isLive) return;
 
       if (data.meta.arguments?.duration) {
@@ -53,9 +53,9 @@ class elapsedComponent extends Component {
       this.start();
     });
 
-    player.socket.on("streamEnd", () => this.stop());
+    window.$socket.on("streamEnd", () => this.stop());
 
-    player.on("firstplay", () => (this.firstPlay = +new Date()));
+    player.one("play", () => (this.firstPlay = +new Date()));
 
     this.on("click", () => {
       this.remaining = !this.remaining;
@@ -102,8 +102,7 @@ class elapsedComponent extends Component {
       this.el().innerHTML = time;
     }
 
-    this.vjsPlayer.missingTime = +new Date() - this.startTime;
-    this.vjsPlayer.trigger("missingTime");
+    this.vjsPlayer.trigger("missingTime", +new Date() - this.startTime);
   }
 
   calculateOffset(serverTime) {
