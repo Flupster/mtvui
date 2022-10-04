@@ -27,6 +27,7 @@ class elapsedComponent extends Component {
   constructor(player: VideoJsPlayer) {
     super(player);
 
+    this.vjsPlayer = player;
     this.duration = null;
     this.serverTime = 0;
     this.startTime = 0;
@@ -100,6 +101,9 @@ class elapsedComponent extends Component {
       const time = secondsToHHMMSS(elapsed);
       this.el().innerHTML = time;
     }
+
+    this.vjsPlayer.missingTime = +new Date() - this.startTime;
+    this.vjsPlayer.trigger("missingTime");
   }
 
   calculateOffset(serverTime) {

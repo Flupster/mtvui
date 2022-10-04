@@ -57,6 +57,7 @@ declare module "video.js" {
   interface VideoJsPlayer {
     settings: PlayerSettings;
     socket: SocketEvents;
+    missingTime: number;
 
     // Bad typescript definition
     log(message?: any, ...optionalParams: any[]);

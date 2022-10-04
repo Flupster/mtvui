@@ -8,6 +8,7 @@ import "./interact";
 import "./fullscreen";
 import "./syncer";
 import "./mirror";
+import "./subtitles";
 
 export default (player) => {
   // Plugins
@@ -16,6 +17,7 @@ export default (player) => {
   player.fullscreen(); // keybindings for double click to full screen
   player.volumesync(); // syncs volume after reloading the page
   player.syncer(); // syncs video playback with the live stream
+  player.subtitles(); // Adds subtitles from backend server and syncs the time
 
   // Components
   player.addChild("TitleBar"); // Adds the title bar

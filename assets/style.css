@@ -131,6 +131,11 @@ video,
   text-shadow: 0em 0em 1em white;
 }
 
+.vjs-subs-caps-button > .vjs-menu > .vjs-menu-content {
+  background-color: #000000;
+  width: 250px;
+}
+
 .cursor {
   position: absolute;
   width: 20px;
