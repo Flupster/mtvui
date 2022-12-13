@@ -1,5 +1,6 @@
 {
   "private": true,
+  "version": "1.0.52",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -7,17 +8,18 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.2.0",
+    "@fortawesome/fontawesome-free": "^6.2.1",
     "@nuxtjs/composition-api": "^0.33.1",
-    "@pinia/nuxt": "^0.4.2",
+    "@pinia-plugin-persistedstate/nuxt": "^1.0.0",
+    "@pinia/nuxt": "^0.4.6",
     "@popperjs/core": "^2.11.6",
-    "bootstrap": "^5.2.2",
-    "bootstrap-vue-3": "^0.3.11",
+    "bootstrap": "^5.2.3",
+    "bootstrap-vue-3": "^0.4.15",
     "flv.js": "^1.6.2",
     "gradient-color": "^2.0.1",
-    "nuxt-socket-io": "^3.0.9",
-    "pinia": "^2.0.22",
-    "pinia-plugin-persistedstate": "^2.2.0",
+    "nuxt-socket-io": "^3.0.12",
+    "pinia": "^2.0.28",
+    "sass": "^1.56.2",
     "video.js": "^8.0.0-1",
     "videojs-flvjs-es6": "^1.0.1",
     "vue-toastification": "^2.0.0-rc.5",
@@ -25,10 +27,10 @@
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.8",
-    "@types/node": "^18.8.1",
-    "@types/video.js": "^7.3.48",
-    "nuxt": "^3.0.0-rc.11",
-    "typescript": "^4.9.1-beta",
-    "vue-tsc": "^1.0.0-beta.8"
+    "@types/node": "^18.11.13",
+    "@types/video.js": "^7.3.50",
+    "nuxt": "^3.0.0",
+    "typescript": "^4.9.4",
+    "vue-tsc": "^1.0.13"
   }
 }

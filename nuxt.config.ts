@@ -1,9 +1,6 @@
-import { defineNuxtConfig } from "nuxt";
-
 export default defineNuxtConfig({
   ssr: false,
-  buildModules: ["@pinia/nuxt"],
-  modules: ["bootstrap-vue-3/nuxt", "nuxt-socket-io"],
+  modules: ["bootstrap-vue-3/nuxt", "nuxt-socket-io", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
   css: [
     "bootstrap/dist/css/bootstrap.css",
     "video.js/dist/video-js.css",
@@ -29,9 +26,5 @@ export default defineNuxtConfig({
         { rel: "manifest", href: "/manifest.json" },
       ],
     },
-  },
-  publicRuntimeConfig: {
-    LIVE_URL: process.env.LIVE_URL,
-    FLV_URL: process.env.FLV_URL,
   },
 });

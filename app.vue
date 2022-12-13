@@ -14,11 +14,13 @@
 <script setup lang="ts">
 import { Ref } from "vue";
 import { StreamMeta } from "./types";
+import { version } from "./package.json";
 
-const $config = useRuntimeConfig();
+console.log("Loading MTV version: ", version);
+
 const { $socket, $toast } = useNuxtApp();
 
-const { isLive }: StreamMeta = await $fetch($config.LIVE_URL);
+const { isLive }: StreamMeta = await $fetch("https://minusten.tv/api/live");
 const live: Ref<boolean> = ref(isLive);
 
 $socket.on("streamStart", () => {
